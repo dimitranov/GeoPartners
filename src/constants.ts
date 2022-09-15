@@ -1,0 +1,4 @@
+export const OFFICE_COORDINATES = [42.6665921, 23.351723];
+export const MIN_INVITE_DISTANCE = 100;
+
+export const RADIUS_OF_EARTH_IN_KM = 6371;

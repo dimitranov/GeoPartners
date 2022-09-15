@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthService } from "../services/authService";
-import { IUserAuthData, IUserData } from "../types/authTypes";
+import { IUserAuthData } from "../types/authTypes";
 
 export enum UserRole {
   USER = "user",
@@ -62,15 +62,7 @@ export function useProvideAuth(): IAuthContext {
 
   const userRole = !user
     ? UserRole.NONE
-    : ((
-        user as {
-          status: string;
-          token: string;
-          data: {
-            user: IUserData;
-          };
-        }
-      ).data.user.role as UserRole);
+    : ((user as IUserAuthData).data.user.role as UserRole);
 
   return {
     user,
@@ -102,12 +94,6 @@ export const PrivateLink = ({
 export const getUserRole = (auth: IAuthContext): UserRole => {
   if (!auth.user) return UserRole.NONE;
   return (
-    (auth as IAuthContext).user as {
-      status: string;
-      token: string;
-      data: {
-        user: IUserData;
-      };
-    }
+    (auth as IAuthContext).user as IUserAuthData
   ).data.user.role as UserRole;
 };

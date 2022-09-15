@@ -8,10 +8,11 @@ export const useAppSession = () => {
 
   useEffect(() => {
     const userData: IUserAuthData | boolean = AuthService.getToken();
+
     if (userData && !auth.user) {
-      auth.signin(userData).then(() => {
-        auth.setLoading(false);
-      });
+      auth
+      .signin(userData)
+      .then(() => auth.setLoading(false));
     } else if (!userData) {
       auth.setLoading(false);
     }

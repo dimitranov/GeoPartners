@@ -1,9 +1,9 @@
 import { Action } from "redux";
 import { RootState } from "./store";
 
-const API_ACTION_MATCHER = new RegExp(/(.*)(pending|fulfilled|rejected)/);
+const API_ACTION_MATCHER = new RegExp(/(.*)(REQUEST|SUCCESS|ERROR)/);
 
-interface LoadinUnit {
+interface LoadingStateDescriptor {
   pending: boolean;
   fulfilled: boolean;
   rejected: boolean;
@@ -12,7 +12,7 @@ interface LoadinUnit {
 export const loadingReducer = (
   state = {},
   action: Action<string>
-): Record<string, LoadinUnit> => {
+): Record<string, LoadingStateDescriptor> => {
   const { type } = action;
 
   const matches = API_ACTION_MATCHER.exec(type);
@@ -26,23 +26,23 @@ export const loadingReducer = (
   return {
     ...state,
     [requestName]: {
-      pending: requestState === "pending",
-      fulfilled: requestState === "fulfilled",
-      rejected: requestState === "rejected",
+      pending: requestState === "REQUEST",
+      fulfilled: requestState === "SUCCESS",
+      rejected: requestState === "ERROR",
     },
   };
 };
 
 export const makeLoadingSelector = (key: string) => (state: RootState) => {
-  const sele =
+  const selector =
     state.loading[(key.match(API_ACTION_MATCHER) as RegExpMatchArray)[1]];
 
-  if (!sele) {
+  if (!selector) {
     return {
       pending: false,
       fulfilled: false,
       rejected: false,
     };
   }
-  return sele;
+  return selector;
 };

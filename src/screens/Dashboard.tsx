@@ -1,10 +1,10 @@
 import React from "react";
-import TourList from "../features/tours/TourList";
+import GeoPartners from "../features/partners";
 
 export default function Dashboard() {
   return (
     <div>
-      <TourList />
+      <GeoPartners/>
     </div>
   );
 }

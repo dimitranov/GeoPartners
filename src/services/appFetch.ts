@@ -1,4 +1,4 @@
-import { IUserData } from "../types/authTypes";
+import { IUserAuthData, IUserData } from "../types/authTypes";
 import axios from "axios";
 import { AuthService } from "./authService";
 
@@ -18,16 +18,10 @@ export const appFetch = (
   URL: string,
   data?: any,
   withAuth?: boolean
-): Promise<any> => {
+): Promise<unknown> => {
   let headers;
   if (withAuth) {
-    const userObj = AuthService.getToken() as {
-      status: string;
-      token: string;
-      data: {
-        user: IUserData;
-      };
-    };
+    const userObj = AuthService.getToken() as IUserAuthData;
 
     if (!userObj) return failterRequestAttempt("Unothorized");
 

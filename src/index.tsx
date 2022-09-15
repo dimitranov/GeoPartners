@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import "./index.scss";
 import { BrowserRouter as Router } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -29,4 +28,3 @@ root.render(
   </React.StrictMode>
 );
 
-reportWebVitals();
